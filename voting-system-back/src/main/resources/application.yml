@@ -7,3 +7,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/db-vs-lifters
     username: lifters
     password: lifters
+
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.yml
