@@ -24,9 +24,7 @@ public class CargoTest {
   @ValueSource(strings = { "", "        ", })
   public void quandoCriadoNovoCargo_comNomeEmBrancoOuComEspacos_entaoDeveLancarException(final String nome) {
 
-    final DomainException domainException = Assertions.assertThrows(DomainException.class, () -> {
-      Cargo.criarCom(nome);
-    });
+    final DomainException domainException = Assertions.assertThrows(DomainException.class, () -> Cargo.criarCom(nome));
 
     Assertions.assertNotNull(domainException);
     Assertions.assertEquals("nome é obrigatório.", domainException.getMensagem());
@@ -35,9 +33,7 @@ public class CargoTest {
   @Test
   public void quandoCriadoNovoCargo_comNomeNulo_entaoDeveLancarException() {
 
-    final DomainException domainException = Assertions.assertThrows(DomainException.class, () -> {
-      Cargo.criarCom(null);
-    });
+    final DomainException domainException = Assertions.assertThrows(DomainException.class, () -> Cargo.criarCom(null));
 
     Assertions.assertNotNull(domainException);
     Assertions.assertEquals("nome é obrigatório.", domainException.getMensagem());
@@ -50,12 +46,39 @@ public class CargoTest {
   })
   public void quandoCriadoNovoCargo_comNomeForaDoLimitePermitido_entaoDeveLancarException(final String nome) {
 
-    final DomainException domainException = Assertions.assertThrows(DomainException.class, () -> {
-      Cargo.criarCom(nome);
-    });
+    final DomainException domainException = Assertions.assertThrows(DomainException.class, () -> Cargo.criarCom(nome));
 
     Assertions.assertNotNull(domainException);
     Assertions.assertEquals("nome deve ter até 100 caracteres.", domainException.getMensagem());
+  }
+
+  @Test
+  public void quandoAtualizarCargo_comNovoNome_entaoNomeDeveSerAtualizadoEAtributoDeAtualizacaoDeveSerAtualizado() {
+    final Cargo novoCargo = Cargo.criarCom("presidenteeee");
+
+    novoCargo.atualizar("presidente");
+
+    Assertions.assertNull(novoCargo.getId());
+    Assertions.assertNotEquals("presidenteeee", novoCargo.getNome());
+    Assertions.assertEquals("presidente".toUpperCase(), novoCargo.getNome());
+    Assertions.assertNotNull(novoCargo.getCriadoEm());
+    Assertions.assertNotNull(novoCargo.getAtualizadoEm());
+    Assertions.assertTrue(novoCargo.getAtualizadoEm().isAfter(novoCargo.getCriadoEm()));
+    Assertions.assertNull(novoCargo.getDeletadoEm());
+  }
+
+  @Test
+  public void quandoAtualizarCargo_comNovoNomeIgaulAoNomeAntigo_entaoNaoDeveAtualizarAtributoDeAtualizacao() {
+    final Cargo novoCargo = Cargo.criarCom("presidente");
+
+    novoCargo.atualizar("presidente");
+
+    Assertions.assertNull(novoCargo.getId());
+    Assertions.assertEquals("presidente".toUpperCase(), novoCargo.getNome());
+    Assertions.assertNotNull(novoCargo.getCriadoEm());
+    Assertions.assertNotNull(novoCargo.getAtualizadoEm());
+    Assertions.assertTrue(novoCargo.getAtualizadoEm().isEqual(novoCargo.getCriadoEm()));
+    Assertions.assertNull(novoCargo.getDeletadoEm());
   }
 
 }
