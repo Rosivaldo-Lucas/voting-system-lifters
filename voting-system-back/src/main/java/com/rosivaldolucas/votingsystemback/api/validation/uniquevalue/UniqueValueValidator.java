@@ -25,7 +25,12 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
   @Override
   public boolean isValid(final Object value, final ConstraintValidatorContext context) {
     final Query query = this.entityManager.createQuery("SELECT 1 FROM " + this.domainClazz.getName() + " WHERE " + this.domainAttribute + " = :value");
-    query.setParameter("value", value);
+
+    if (value instanceof String newValueString) {
+      query.setParameter("value", newValueString.toUpperCase());
+    } else {
+      query.setParameter("value", value);
+    }
 
     final List<?> list = query.getResultList();
 
