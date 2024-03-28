@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Rosivaldo Lucas
+      changes:
+        - renameColumn:
+            tableName: cargos
+            oldColumnName: criadoEm
+            newColumnName: criado_em
+        - renameColumn:
+            tableName: cargos
+            oldColumnName: atualizadoEm
+            newColumnName: atualizado_em
+        - renameColumn:
+            tableName: cargos
+            oldColumnName: deletadoEm
+            newColumnName: deletado_em
