@@ -1,21 +1,18 @@
 package com.rosivaldolucas.votingsystemback.domain.candidato;
 
 import com.rosivaldolucas.votingsystemback.domain.cargo.Cargo;
+import com.rosivaldolucas.votingsystemback.domain.entity.BaseEntity;
+import com.rosivaldolucas.votingsystemback.domain.exception.DomainException;
 import com.rosivaldolucas.votingsystemback.domain.voto.Voto;
 import jakarta.persistence.*;
+import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "candidatos")
-public class Candidato {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+public class Candidato extends BaseEntity {
 
   @Column(name = "nome")
   private String nome;
@@ -33,28 +30,17 @@ public class Candidato {
   @OneToMany(mappedBy = "candidato", cascade = CascadeType.ALL)
   private final Set<Voto> votos = new HashSet<>();
 
-  @Column(name = "criado_em")
-  private LocalDateTime criadoEm;
-
-  @Column(name = "atualizado_em")
-  private LocalDateTime atualizadoEm;
-
-  @Column(name = "deletado_em")
-  private LocalDateTime deletadoEm;
-
   protected Candidato() { }
 
   private Candidato(final String nome, final Integer numero, final String legenda, final Cargo cargo) {
+    super();
+
     this.nome = nome;
     this.numero = numero;
     this.legenda = legenda;
     this.cargo = cargo;
 
-    final LocalDateTime dataHoraAtual = LocalDateTime.now();
-
-    this.criadoEm = dataHoraAtual;
-    this.atualizadoEm = dataHoraAtual;
-    this.deletadoEm = null;
+    this.validar();
   }
 
   public static Candidato criarCom(final String nome, final Integer numero, final String legenda, final Cargo cargo) {
@@ -65,8 +51,28 @@ public class Candidato {
     this.votos.add(voto);
   }
 
-  public UUID getId() {
-    return id;
+  public void atualizar(final String nome, final Integer numero, final String legenda, final Cargo cargo) {
+    this.nome = nome;
+    this.numero = numero;
+    this.legenda = legenda;
+    this.cargo = cargo;
+
+    this.validar();
+
+    this.atualizadoEm();
+  }
+
+  public void deletar() {
+    this.deletadoEm();
+  }
+
+  private void validar() {
+    if (!StringUtils.hasText(this.nome)) throw new DomainException("nome é obrigatório.");
+    if (this.nome.length() < 5 || this.nome.length() > 100) throw new DomainException("nome deve ter até 100 caracteres.");
+
+    if (this.numero == null) throw new DomainException("número é obrigatório.");
+    if (this.legenda.length() > 255) throw new DomainException("legenda deve ter 255 caracteres.");
+    if (this.cargo == null) throw new DomainException("cargo é obrigatório.");
   }
 
   public String getNome() {
@@ -87,18 +93,6 @@ public class Candidato {
 
   public Set<Voto> getVotos() {
     return votos;
-  }
-
-  public LocalDateTime getCriadoEm() {
-    return criadoEm;
-  }
-
-  public LocalDateTime getAtualizadoEm() {
-    return atualizadoEm;
-  }
-
-  public LocalDateTime getDeletadoEm() {
-    return deletadoEm;
   }
 
 }

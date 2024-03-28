@@ -53,7 +53,7 @@ public class Eleitor extends BaseEntity {
     if (!StringUtils.hasText(this.nome)) throw new DomainException("nome é obrigatório.");
     if (this.nome.length() < 5 || this.nome.length() > 100) throw new DomainException("nome deve ter até 100 caracteres.");
 
-    if (!StringUtils.hasText(this.cpf)) throw new DomainException("cpf é obrigatório");
+    if (!StringUtils.hasText(this.cpf)) throw new DomainException("cpf é obrigatório.");
     if (this.cpf.length() != 11) throw new DomainException("cpf deve ter 11 caracteres.");
   }
 
