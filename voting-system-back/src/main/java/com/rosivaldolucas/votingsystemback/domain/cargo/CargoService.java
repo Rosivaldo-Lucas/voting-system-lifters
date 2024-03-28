@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,10 @@ public class CargoService {
 
   public Page<Cargo> listar(int numeroPagina, int tamanhoPagina) {
     return this.cargoRepository.findAllByDeletadoEmIsNull(PageRequest.of(numeroPagina, tamanhoPagina));
+  }
+
+  public List<Cargo> listar() {
+    return this.cargoRepository.findAll();
   }
 
   public Cargo buscarPorId(final String idCargo) {
