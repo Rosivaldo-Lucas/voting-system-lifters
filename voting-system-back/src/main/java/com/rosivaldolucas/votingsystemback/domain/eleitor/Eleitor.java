@@ -6,6 +6,11 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import org.springframework.util.StringUtils;
+import com.rosivaldolucas.votingsystemback.domain.voto.Voto;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "eleitores")
