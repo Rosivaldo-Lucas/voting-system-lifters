@@ -33,7 +33,7 @@ public class Cargo {
     final LocalDateTime dataHoraAtual = LocalDateTime.now();
 
     this.id = id;
-    this.nome = nome != null ? nome.toUpperCase() : null;
+    this.nome = nome != null ? this.converterNomeParaMaiusculo(nome) : null;
     this.criadoEm = dataHoraAtual;
     this.atualizadoEm = dataHoraAtual;
     this.deletadoEm = null;
@@ -45,9 +45,25 @@ public class Cargo {
     return new Cargo(null, nome);
   }
 
+  public void atualizar(final String novoNome) {
+    final String novoNomeFormatado = converterNomeParaMaiusculo(novoNome);
+
+    if (!this.nome.equals(novoNomeFormatado)) {
+      this.nome = novoNomeFormatado;
+
+      this.validar();
+
+      this.atualizadoEm = LocalDateTime.now();
+    }
+  }
+
   public void validar() {
     if (!StringUtils.hasText(this.nome)) throw new DomainException("nome é obrigatório.");
     if (this.nome.length() < 5 || this.nome.length() > 100) throw new DomainException("nome deve ter até 100 caracteres.");
+  }
+
+  private String converterNomeParaMaiusculo(final String nome) {
+    return nome.toUpperCase();
   }
 
   public UUID getId() {

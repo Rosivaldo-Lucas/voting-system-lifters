@@ -1,10 +1,14 @@
 package com.rosivaldolucas.votingsystemback.domain.cargo;
 
+import com.rosivaldolucas.votingsystemback.api.cargo.dto.AtualizarCargoInput;
 import com.rosivaldolucas.votingsystemback.api.cargo.dto.NovoCargoInput;
+import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoDuplicadoException;
 import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoNaoEncontradoException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class CargoService {
@@ -29,6 +33,19 @@ public class CargoService {
     final Cargo cargo = Cargo.criarCom(input.nome());
 
     return this.cargoRepository.save(cargo);
+  }
+
+  public Cargo atualizar(final String idCargo, final AtualizarCargoInput input) {
+    final Optional<Cargo> cargoBuscadoPorNome = this.cargoRepository.findByNome(input.nome().toUpperCase());
+    final Cargo cargoASerAtualizado = this.buscarPorId(idCargo);
+
+    if (cargoBuscadoPorNome.isPresent() && !cargoBuscadoPorNome.get().getNome().equals(cargoASerAtualizado.getNome())) {
+      throw new CargoDuplicadoException(String.format("O nome do cargo '%s' já existe.", input));
+    }
+
+    cargoASerAtualizado.atualizar(input.nome());
+
+    return this.cargoRepository.save(cargoASerAtualizado);
   }
 
 }

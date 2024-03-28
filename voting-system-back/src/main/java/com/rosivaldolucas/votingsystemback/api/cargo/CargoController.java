@@ -1,5 +1,6 @@
 package com.rosivaldolucas.votingsystemback.api.cargo;
 
+import com.rosivaldolucas.votingsystemback.api.cargo.dto.AtualizarCargoInput;
 import com.rosivaldolucas.votingsystemback.api.cargo.dto.CargoOutput;
 import com.rosivaldolucas.votingsystemback.api.cargo.dto.NovoCargoInput;
 import com.rosivaldolucas.votingsystemback.domain.cargo.Cargo;
@@ -45,6 +46,15 @@ public class CargoController {
     final CargoOutput cargoOutput = CargoOutput.criar(cargoCadastrado);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(cargoOutput);
+  }
+
+  @PatchMapping("/{idCargo}")
+  public ResponseEntity<CargoOutput> atualizar(@PathVariable String idCargo, @RequestBody @Validated final AtualizarCargoInput input) {
+    final Cargo cargoAtualizado = this.cargoService.atualizar(idCargo, input);
+
+    final CargoOutput cargoOutput = CargoOutput.criar(cargoAtualizado);
+
+    return ResponseEntity.status(HttpStatus.OK).body(cargoOutput);
   }
 
 }

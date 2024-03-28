@@ -19,4 +19,6 @@ public interface CargoRepository extends JpaRepository<Cargo, UUID> {
     }
   }
 
+  Optional<Cargo> findByNome(final String nome);
+
 }
