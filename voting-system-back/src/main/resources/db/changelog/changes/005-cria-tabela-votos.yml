@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: Rosivaldo Lucas
+      changes:
+        - createTable:
+            tableName: votos
+            columns:
+              - column:
+                  name: id_candidato
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: id_eleitor
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: data
+                  type: datetime
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: votos
+            baseColumnNames: id_candidato
+            constraintName: fk_id_candidato
+            referencedTableName: candidatos
+            referencedColumnNames: id
+        - addForeignKeyConstraint:
+            baseTableName: votos
+            baseColumnNames: id_eleitor
+            constraintName: fk_id_eleitor
+            referencedTableName: eleitores
+            referencedColumnNames: id
