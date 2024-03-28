@@ -1,11 +1,9 @@
 package com.rosivaldolucas.votingsystemback.domain.eleitor;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.rosivaldolucas.votingsystemback.domain.entity.BaseRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface EleitorRepository extends JpaRepository<Eleitor, UUID> {
+public interface EleitorRepository extends BaseRepository<Eleitor> {
 
 }

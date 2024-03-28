@@ -1,6 +1,7 @@
 package com.rosivaldolucas.votingsystemback.domain.eleitor;
 
 import com.rosivaldolucas.votingsystemback.api.eleitor.dto.NovoEleitorInput;
+import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeNaoEncontradaException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,6 +11,12 @@ public class EleitorService {
 
   public EleitorService(final EleitorRepository eleitorRepository) {
     this.eleitorRepository = eleitorRepository;
+  }
+
+  public Eleitor busarPorId(final String idEleitor) {
+    return this.eleitorRepository
+            .findById(idEleitor)
+            .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Eleitor de 'id' %s não encontrado.", idEleitor)));
   }
 
   public Eleitor cadastrar(final NovoEleitorInput input) {
