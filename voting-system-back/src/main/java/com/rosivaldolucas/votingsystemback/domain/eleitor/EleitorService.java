@@ -2,6 +2,8 @@ package com.rosivaldolucas.votingsystemback.domain.eleitor;
 
 import com.rosivaldolucas.votingsystemback.api.eleitor.dto.NovoEleitorInput;
 import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeNaoEncontradaException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -11,6 +13,10 @@ public class EleitorService {
 
   public EleitorService(final EleitorRepository eleitorRepository) {
     this.eleitorRepository = eleitorRepository;
+  }
+
+  public Page<Eleitor> listar(int numeroPagina, int tamanhoPagina) {
+    return this.eleitorRepository.findAllByDeletadoEmIsNull(PageRequest.of(numeroPagina, tamanhoPagina));
   }
 
   public Eleitor busarPorId(final String idEleitor) {

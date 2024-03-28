@@ -4,13 +4,11 @@ import com.rosivaldolucas.votingsystemback.api.eleitor.dto.EleitorOutput;
 import com.rosivaldolucas.votingsystemback.api.eleitor.dto.NovoEleitorInput;
 import com.rosivaldolucas.votingsystemback.domain.eleitor.Eleitor;
 import com.rosivaldolucas.votingsystemback.domain.eleitor.EleitorService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/eleitores")
@@ -20,6 +18,24 @@ public class EleitorController {
 
   public EleitorController(final EleitorService eleitorService) {
     this.eleitorService = eleitorService;
+  }
+
+  @GetMapping
+  public ResponseEntity<Page<EleitorOutput>> listar(@RequestParam final int numeroPagina, @RequestParam final int tamanhoPagina) {
+    final Page<Eleitor> eleitoresPage = this.eleitorService.listar(numeroPagina, tamanhoPagina);
+
+    final Page<EleitorOutput> eleitoresOutput = EleitorOutput.criar(eleitoresPage);
+
+    return ResponseEntity.status(HttpStatus.OK).body(eleitoresOutput);
+  }
+
+  @GetMapping("/{idEleitor}")
+  public ResponseEntity<EleitorOutput> buscarPorId(@PathVariable final String idEleitor) {
+    final Eleitor eleitor = this.eleitorService.busarPorId(idEleitor);
+
+    final EleitorOutput eleitorOutput = EleitorOutput.criar(eleitor);
+
+    return ResponseEntity.status(HttpStatus.OK).body(eleitorOutput);
   }
 
   @PostMapping
