@@ -1,0 +1,54 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: Rosivaldo Lucas
+      changes:
+        - createTable:
+            tableName: candidatos
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nome
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: numero
+                  type: int
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: legenda
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: id_cargo
+                  type: uuid
+                  constraints:
+                    nullable: false
+              - column:
+                  name: criado_em
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: atualizado_em
+                  type: datetime
+              - column:
+                  name: deletado_em
+                  type: datetime
+        - addForeignKeyConstraint:
+            baseTableName: candidatos
+            baseColumnNames: id_cargo
+            constraintName: fk_id_cargo
+            referencedTableName: cargos
+            referencedColumnNames: id
+            onDelete: NO ACTION
+            onUpdate: CASCADE

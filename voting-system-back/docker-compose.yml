@@ -1,0 +1,18 @@
+version: "3.7"
+
+services:
+  db-voting-system:
+    container_name: db-vs-lifters
+    image: bitnami/postgresql
+    restart: always
+    environment:
+      POSTGRES_DB: db-vs-lifters
+      POSTGRES_USER: lifters
+      POSTGRES_PASSWORD: lifters
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-vs-lifters:/var/lib/postgresql/data
+
+volumes:
+  db-vs-lifters:

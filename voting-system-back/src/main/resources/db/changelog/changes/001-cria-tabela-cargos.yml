@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Rosivaldo Lucas
+      changes:
+        - createTable:
+            tableName: cargos
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nome
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: criadoEm
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: atualizadoEm
+                  type: datetime
+              - column:
+                  name: deletadoEm
+                  type: datetime
