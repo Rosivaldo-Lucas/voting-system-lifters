@@ -4,6 +4,8 @@ import com.rosivaldolucas.votingsystemback.api.candidato.dto.NovoCandidatoInput;
 import com.rosivaldolucas.votingsystemback.domain.candidato.exception.CandidatoNaoEncontradoException;
 import com.rosivaldolucas.votingsystemback.domain.cargo.Cargo;
 import com.rosivaldolucas.votingsystemback.domain.cargo.CargoService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,6 +17,10 @@ public class CandidatoService {
   public CandidatoService(final CandidatoRepository candidatoRepository, final CargoService cargoService) {
     this.candidatoRepository = candidatoRepository;
     this.cargoService = cargoService;
+  }
+
+  public Page<Candidato> listar(int numeroPagina, int tamanhoPagina) {
+    return this.candidatoRepository.findAllByDeletadoEmIsNull(PageRequest.of(numeroPagina, tamanhoPagina));
   }
 
   public Candidato buscarPorId(final String idCandidato) {
