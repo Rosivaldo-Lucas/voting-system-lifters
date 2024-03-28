@@ -2,10 +2,13 @@ package com.rosivaldolucas.votingsystemback.domain.eleitor;
 
 import com.rosivaldolucas.votingsystemback.domain.entity.BaseEntity;
 import com.rosivaldolucas.votingsystemback.domain.exception.DomainException;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.rosivaldolucas.votingsystemback.domain.exception.VotosComputadosException;
+import com.rosivaldolucas.votingsystemback.domain.voto.Voto;
+import jakarta.persistence.*;
 import org.springframework.util.StringUtils;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "eleitores")
@@ -16,6 +19,9 @@ public class Eleitor extends BaseEntity {
 
   @Column(name = "cpf")
   private String cpf;
+
+  @OneToMany(mappedBy = "eleitor")
+  private final Set<Voto> votos = new HashSet<>();
 
   protected Eleitor() { }
 
@@ -46,6 +52,12 @@ public class Eleitor extends BaseEntity {
   }
 
   public void deletar() {
+    final boolean isTemVotosComputados = !this.votos.isEmpty();
+
+    if (isTemVotosComputados) {
+      throw new VotosComputadosException("Não é possível deletar o Eleitor, pois existem votos computados.");
+    }
+
     this.deletadoEm();
   }
 

@@ -3,6 +3,7 @@ package com.rosivaldolucas.votingsystemback.domain.candidato;
 import com.rosivaldolucas.votingsystemback.domain.cargo.Cargo;
 import com.rosivaldolucas.votingsystemback.domain.entity.BaseEntity;
 import com.rosivaldolucas.votingsystemback.domain.exception.DomainException;
+import com.rosivaldolucas.votingsystemback.domain.exception.VotosComputadosException;
 import com.rosivaldolucas.votingsystemback.domain.voto.Voto;
 import jakarta.persistence.*;
 import org.springframework.util.StringUtils;
@@ -63,6 +64,12 @@ public class Candidato extends BaseEntity {
   }
 
   public void deletar() {
+    final boolean isTemVotosComputados = !this.votos.isEmpty();
+
+    if (isTemVotosComputados) {
+      throw new VotosComputadosException("Não é possível deletar o Candidato, pois existem votos computados.");
+    }
+
     this.deletadoEm();
   }
 
