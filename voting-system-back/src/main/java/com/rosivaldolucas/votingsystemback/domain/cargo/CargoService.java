@@ -30,18 +30,15 @@ public class CargoService {
   }
 
   public Cargo cadastrar(final NovoCargoInput input) {
-    final Cargo cargo = Cargo.criarCom(input.nome());
+    final Cargo cargoASerCadastrado = Cargo.criarCom(input.nome());
 
-    return this.cargoRepository.save(cargo);
+    return this.cargoRepository.save(cargoASerCadastrado);
   }
 
   public Cargo atualizar(final String idCargo, final AtualizarCargoInput input) {
-    final Optional<Cargo> cargoBuscadoPorNome = this.cargoRepository.findByNome(input.nome().toUpperCase());
     final Cargo cargoASerAtualizado = this.buscarPorId(idCargo);
 
-    if (cargoBuscadoPorNome.isPresent() && !cargoBuscadoPorNome.get().getNome().equals(cargoASerAtualizado.getNome())) {
-      throw new CargoDuplicadoException(String.format("O nome do cargo '%s' já existe.", input));
-    }
+    this.validarDuplicidade(input.nome(), cargoASerAtualizado.getNome());
 
     cargoASerAtualizado.atualizar(input.nome());
 
@@ -54,6 +51,14 @@ public class CargoService {
     cargoASerDeletado.deletar();
 
     this.cargoRepository.save(cargoASerDeletado);
+  }
+
+  private void validarDuplicidade(final String nomeCargoInput, final String nomeCargo) {
+    final Optional<Cargo> cargoBuscadoPorNome = this.cargoRepository.findByNome(nomeCargoInput.toUpperCase());
+
+    if (cargoBuscadoPorNome.isPresent() && !cargoBuscadoPorNome.get().getNome().equals(nomeCargo)) {
+      throw new CargoDuplicadoException(String.format("O nome do cargo '%s' já existe.", nomeCargoInput));
+    }
   }
 
 }
