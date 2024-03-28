@@ -7,10 +7,7 @@ import com.rosivaldolucas.votingsystemback.domain.candidato.CandidatoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/candidatos")
@@ -20,6 +17,15 @@ public class CandidatoController {
 
   public CandidatoController(final CandidatoService candidatoService) {
     this.candidatoService = candidatoService;
+  }
+
+  @GetMapping("/{idCandidato}")
+  public ResponseEntity<CandidatoOutput> buscarPorId(@PathVariable final String idCandidato) {
+    final Candidato candidatoBuscado = this.candidatoService.buscarPorId(idCandidato);
+
+    final CandidatoOutput candidatoOutput = CandidatoOutput.criar(candidatoBuscado);
+
+    return ResponseEntity.status(HttpStatus.OK).body(candidatoOutput);
   }
 
   @PostMapping
