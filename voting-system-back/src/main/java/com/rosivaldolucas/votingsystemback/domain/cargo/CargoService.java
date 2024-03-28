@@ -1,9 +1,8 @@
 package com.rosivaldolucas.votingsystemback.domain.cargo;
 
 import com.rosivaldolucas.votingsystemback.api.cargo.dto.NovoCargoInput;
+import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoNaoEncontradoException;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class CargoService {
@@ -12,6 +11,12 @@ public class CargoService {
 
   private CargoService(final CargoRepository cargoRepository) {
     this.cargoRepository = cargoRepository;
+  }
+
+  public Cargo buscarPorId(final String idCargo) {
+    return this.cargoRepository
+            .findById(idCargo)
+            .orElseThrow(() -> new CargoNaoEncontradoException(String.format("Cargo de 'id' %s não encontrado.", idCargo)));
   }
 
   public Cargo cadastrar(final NovoCargoInput input) {
