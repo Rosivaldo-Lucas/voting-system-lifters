@@ -81,4 +81,13 @@ public class CargoTest {
     Assertions.assertNull(novoCargo.getDeletadoEm());
   }
 
+  @Test
+  public void quandoDeletarCargo_entaoDeveAtualizarAtributoDeletadoEm() {
+    final Cargo novoCargo = Cargo.criarCom("presidente");
+
+    novoCargo.deletar();
+
+    Assertions.assertNotNull(novoCargo.getDeletadoEm());
+  }
+
 }
