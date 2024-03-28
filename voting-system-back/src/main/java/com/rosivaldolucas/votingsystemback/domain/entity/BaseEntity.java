@@ -45,4 +45,12 @@ public abstract class BaseEntity {
     return deletadoEm;
   }
 
+  protected void atualizadoEm() {
+    this.atualizadoEm = LocalDateTime.now();
+  }
+
+  protected void deletadoEm() {
+    this.deletadoEm = LocalDateTime.now();
+  }
+
 }
