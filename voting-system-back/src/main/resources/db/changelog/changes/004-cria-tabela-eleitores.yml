@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: Rosivaldo Lucas
+      changes:
+        - createTable:
+            tableName: eleitores
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: nome
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: cpf
+                  type: varchar(11)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: criado_em
+                  type: datetime
+                  constraints:
+                    nullable: false
+              - column:
+                  name: atualizado_em
+                  type: datetime
+              - column:
+                  name: deletado_em
+                  type: datetime
