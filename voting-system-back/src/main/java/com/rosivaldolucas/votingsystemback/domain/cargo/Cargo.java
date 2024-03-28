@@ -57,6 +57,10 @@ public class Cargo {
     }
   }
 
+  public void deletar() {
+    this.deletadoEm = LocalDateTime.now();
+  }
+
   public void validar() {
     if (!StringUtils.hasText(this.nome)) throw new DomainException("nome é obrigatório.");
     if (this.nome.length() < 5 || this.nome.length() > 100) throw new DomainException("nome deve ter até 100 caracteres.");

@@ -20,7 +20,7 @@ public class CargoService {
   }
 
   public Page<Cargo> listar(int numeroPagina, int tamanhoPagina) {
-    return this.cargoRepository.findAll(PageRequest.of(numeroPagina, tamanhoPagina));
+    return this.cargoRepository.findAllByDeletadoEmIsNull(PageRequest.of(numeroPagina, tamanhoPagina));
   }
 
   public Cargo buscarPorId(final String idCargo) {
@@ -46,6 +46,14 @@ public class CargoService {
     cargoASerAtualizado.atualizar(input.nome());
 
     return this.cargoRepository.save(cargoASerAtualizado);
+  }
+
+  public void deletar(final String idCargo) {
+    final Cargo cargoASerDeletado = this.buscarPorId(idCargo);
+
+    cargoASerDeletado.deletar();
+
+    this.cargoRepository.save(cargoASerDeletado);
   }
 
 }

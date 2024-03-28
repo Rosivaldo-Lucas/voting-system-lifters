@@ -57,4 +57,11 @@ public class CargoController {
     return ResponseEntity.status(HttpStatus.OK).body(cargoOutput);
   }
 
+  @DeleteMapping("/{idCargo}")
+  public ResponseEntity<Void> deletar(@PathVariable final String idCargo) {
+    this.cargoService.deletar(idCargo);
+
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+  }
+
 }
