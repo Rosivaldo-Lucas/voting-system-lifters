@@ -24,6 +24,9 @@ public class Candidato extends BaseEntity {
   @Column(name = "legenda")
   private String legenda;
 
+  @Column(name = "quantidade_votos")
+  private Integer quantidadeVotos;
+
   @ManyToOne
   @JoinColumn(name = "id_cargo")
   private Cargo cargo;
@@ -50,6 +53,8 @@ public class Candidato extends BaseEntity {
 
   public void receberVoto(final Voto voto) {
     this.votos.add(voto);
+
+    this.quantidadeVotos += 1;
   }
 
   public void atualizar(final String nome, final Integer numero, final String legenda, final Cargo cargo) {
@@ -92,6 +97,10 @@ public class Candidato extends BaseEntity {
 
   public String getLegenda() {
     return legenda;
+  }
+
+  public Integer getQuantidadeVotos() {
+    return quantidadeVotos;
   }
 
   public Cargo getCargo() {
