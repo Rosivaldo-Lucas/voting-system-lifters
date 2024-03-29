@@ -2,6 +2,7 @@ package com.rosivaldolucas.votingsystemback.domain.candidato;
 
 import com.rosivaldolucas.votingsystemback.domain.cargo.Cargo;
 import com.rosivaldolucas.votingsystemback.domain.cargo.CargoService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class CandidatoRelatorioVotacaoService {
     this.cargoService = cargoService;
   }
 
+  @Cacheable(value = "relatorioCandidatos")
   public List<Candidato> gerar() {
     return this.encontrarCandidatosVencedoresPorCategoriaVesaoJPQL();
   }

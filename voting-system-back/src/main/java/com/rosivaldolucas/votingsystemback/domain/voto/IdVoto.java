@@ -22,8 +22,8 @@ public class IdVoto implements Serializable {
     this.idEleitor = idEleitor;
   }
 
-  public static IdVoto criar(final UUID idCandidato, final UUID idEleitor) {
-    return new IdVoto(idCandidato, idEleitor);
+  public static IdVoto criar(final String idCandidato, final String idEleitor) {
+    return new IdVoto(UUID.fromString(idCandidato), UUID.fromString(idEleitor));
   }
 
 }

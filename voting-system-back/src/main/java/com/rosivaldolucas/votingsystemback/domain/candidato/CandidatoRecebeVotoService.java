@@ -2,17 +2,19 @@ package com.rosivaldolucas.votingsystemback.domain.candidato;
 
 import com.rosivaldolucas.votingsystemback.domain.exception.VotoDuplicadoException;
 import com.rosivaldolucas.votingsystemback.domain.voto.Voto;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CandidatoReceberVotoService {
+public class CandidatoRecebeVotoService {
 
   private final CandidatoRepository candidatoRepository;
 
-  public CandidatoReceberVotoService(CandidatoRepository candidatoRepository) {
+  public CandidatoRecebeVotoService(CandidatoRepository candidatoRepository) {
     this.candidatoRepository = candidatoRepository;
   }
 
+  @CacheEvict(value = "relatorioCandidatos", allEntries = true)
   public void receber(final Candidato candidato, final Voto voto) {
     this.validarVotoDuplicado(candidato, voto);
 

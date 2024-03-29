@@ -8,12 +8,13 @@ import com.rosivaldolucas.votingsystemback.domain.voto.Voto;
 import jakarta.persistence.*;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "candidatos")
-public class Candidato extends BaseEntity {
+public class Candidato extends BaseEntity implements Serializable {
 
   @Column(name = "nome")
   private String nome;

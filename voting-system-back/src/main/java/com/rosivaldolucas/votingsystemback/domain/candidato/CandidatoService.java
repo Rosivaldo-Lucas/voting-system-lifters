@@ -6,6 +6,8 @@ import com.rosivaldolucas.votingsystemback.domain.candidato.exception.CandidatoN
 import com.rosivaldolucas.votingsystemback.domain.cargo.Cargo;
 import com.rosivaldolucas.votingsystemback.domain.cargo.CargoService;
 import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoDuplicadoException;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ public class CandidatoService {
     this.cargoService = cargoService;
   }
 
+  @Cacheable(value = "candidatos", key = "#numeroPagina + '-' + #tamanhoPagina")
   public Page<Candidato> listar(int numeroPagina, int tamanhoPagina) {
     return this.candidatoRepository.findAllByDeletadoEmIsNull(PageRequest.of(numeroPagina, tamanhoPagina));
   }
@@ -33,6 +36,7 @@ public class CandidatoService {
             .orElseThrow(() -> new CandidatoNaoEncontradoException(String.format("Candidato de 'id' %s não encontrado.", idCandidato)));
   }
 
+  @CacheEvict(value = "candidatos", allEntries = true)
   public Candidato cadastrar(final NovoCandidatoInput input) {
     final Cargo cargoCanditado = this.cargoService.buscarPorId(input.idCargo());
 
@@ -41,6 +45,7 @@ public class CandidatoService {
     return this.candidatoRepository.save(candidatoASerCadastrado);
   }
 
+  @CacheEvict(value = "candidatos", allEntries = true)
   public Candidato atualizar(final String idCandidato, final AtualizarCandidatoInput input) {
     final Candidato candidatoASerAtualizado = this.buscarPorId(idCandidato);
 
@@ -53,6 +58,7 @@ public class CandidatoService {
     return this.candidatoRepository.save(candidatoASerAtualizado);
   }
 
+  @CacheEvict(value = "candidatos", allEntries = true)
   public void deletar(final String idCandidato) {
     final Candidato candidatoASerDeletado = this.buscarPorId(idCandidato);
 
