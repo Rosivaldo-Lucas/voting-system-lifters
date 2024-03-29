@@ -27,7 +27,7 @@ public class CandidatoRecebeVotoService {
     candidato.getVotos().forEach((votoRecebido) -> {
       final boolean isEleitorJaVotou = votoRecebido.getEleitor().getId().equals(voto.getEleitor().getId());
       if (isEleitorJaVotou) {
-        throw new VotoDuplicadoException(String.format("Eleitor de 'id' %s já votou", votoRecebido.getEleitor().getId()));
+        throw new VotoDuplicadoException(String.format("Eleitor de 'id' %s já votou neste Candidato", votoRecebido.getEleitor().getId()));
       }
     });
   }

@@ -2,10 +2,10 @@ package com.rosivaldolucas.votingsystemback.domain.candidato;
 
 import com.rosivaldolucas.votingsystemback.api.candidato.dto.AtualizarCandidatoInput;
 import com.rosivaldolucas.votingsystemback.api.candidato.dto.NovoCandidatoInput;
-import com.rosivaldolucas.votingsystemback.domain.candidato.exception.CandidatoNaoEncontradoException;
 import com.rosivaldolucas.votingsystemback.domain.cargo.Cargo;
 import com.rosivaldolucas.votingsystemback.domain.cargo.CargoService;
-import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoDuplicadoException;
+import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeDuplicadaException;
+import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeNaoEncontradaException;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -33,7 +33,7 @@ public class CandidatoService {
   public Candidato buscarPorId(final String idCandidato) {
     return this.candidatoRepository
             .findById(idCandidato)
-            .orElseThrow(() -> new CandidatoNaoEncontradoException(String.format("Candidato de 'id' %s não encontrado.", idCandidato)));
+            .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Candidato de 'id' %s não encontrado.", idCandidato)));
   }
 
   @CacheEvict(value = "candidatos", allEntries = true)
@@ -71,7 +71,7 @@ public class CandidatoService {
     final Optional<Candidato> candidatoBuscadoPorNumero = this.candidatoRepository.findByNumero(numeroCandidadoInput);
 
     if (candidatoBuscadoPorNumero.isPresent() && !candidatoBuscadoPorNumero.get().getNumero().equals(numeroCandidato)) {
-      throw new CargoDuplicadoException(String.format("O cpf '%d' já existe.", numeroCandidadoInput));
+      throw new EntidadeDuplicadaException(String.format("O cpf '%d' já existe.", numeroCandidadoInput));
     }
   }
 

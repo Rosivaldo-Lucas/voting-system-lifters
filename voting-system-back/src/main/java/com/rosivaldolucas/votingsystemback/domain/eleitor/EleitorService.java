@@ -2,7 +2,7 @@ package com.rosivaldolucas.votingsystemback.domain.eleitor;
 
 import com.rosivaldolucas.votingsystemback.api.eleitor.dto.AtualizarEleitorInput;
 import com.rosivaldolucas.votingsystemback.api.eleitor.dto.NovoEleitorInput;
-import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoDuplicadoException;
+import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeDuplicadaException;
 import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeNaoEncontradaException;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
@@ -63,7 +63,7 @@ public class EleitorService {
     final Optional<Eleitor> eleitorBuscadoPorCpf = this.eleitorRepository.findByCpf(cpfEleitorInput.toUpperCase());
 
     if (eleitorBuscadoPorCpf.isPresent() && !eleitorBuscadoPorCpf.get().getNome().equals(cpfEleitor)) {
-      throw new CargoDuplicadoException(String.format("O cpf '%s' já existe.", cpfEleitorInput));
+      throw new EntidadeDuplicadaException(String.format("O cpf '%s' já existe.", cpfEleitorInput));
     }
   }
 
