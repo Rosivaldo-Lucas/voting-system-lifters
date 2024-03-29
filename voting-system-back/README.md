@@ -86,7 +86,7 @@ em containers e assim fazer com que eles se comuniquem e façam o sistema funcio
   - ```sdk install maven``` Depois de instalar o *SDKMAN*
 - Para instalar o *Git* acesse: https://git-scm.com/downloads
 
-## 🚀 Executando a API
+## 🚀 Executando API
 
 ### Passo 1: Clonar o repositório
 
@@ -131,7 +131,7 @@ docker compose -f docker-compose.yml up -d
 Este comando irá executar o container do Banco de Dados *PostgreSQL*, o container do Banco de Dados em memória *Redis* para Cache
 e irá executar a aplicação *Spring Boot* na porta *8080*
 
-## 📝 Testando a API com o Swagger
+## 📝 Testando API com Swagger
 
 Com o sistema em execução, em seu navegador digite a seguinte URL para abrir a documentação da aplicação
 
@@ -154,3 +154,9 @@ Com o sistema em execução, em seu navegador digite a seguinte URL para abrir a
 
 - [Projeto](https://github.com/users/Rosivaldo-Lucas/projects/5/views/1)
 - [Issues](https://github.com/Rosivaldo-Lucas/voting-system-lifters/issues?q=is%3Aissue+is%3Aclosed)
+
+## 🚀 Próximas etapas e melhorias
+
+- Adicionar envio de email para o eleitor apos o voto
+- Adicionar fechamento da votação
+- Implementar Frontend
