@@ -1,48 +1,32 @@
 package com.rosivaldolucas.votingsystemback.domain.cargo;
 
+import com.rosivaldolucas.votingsystemback.domain.entity.BaseEntity;
 import com.rosivaldolucas.votingsystemback.domain.exception.DomainException;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "cargos")
-public class Cargo {
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.UUID)
-  private UUID id;
+public class Cargo extends BaseEntity implements Serializable {
 
   @Column(name = "nome")
   private String nome;
 
-  @Column(name = "criado_em")
-  private LocalDateTime criadoEm;
-
-  @Column(name = "atualizado_em")
-  private LocalDateTime atualizadoEm;
-
-  @Column(name = "deletado_em")
-  private LocalDateTime deletadoEm;
-
   protected Cargo() { }
 
-  private Cargo(final UUID id, final String nome) {
-    final LocalDateTime dataHoraAtual = LocalDateTime.now();
-
-    this.id = id;
+  private Cargo(final String nome) {
+    super();
     this.nome = nome != null ? this.converterNomeParaMaiusculo(nome) : null;
-    this.criadoEm = dataHoraAtual;
-    this.atualizadoEm = dataHoraAtual;
-    this.deletadoEm = null;
 
     this.validar();
   }
 
   public static Cargo criarCom(final String nome) {
-    return new Cargo(null, nome);
+    return new Cargo(nome);
   }
 
   public void atualizar(final String novoNome) {
@@ -53,12 +37,12 @@ public class Cargo {
 
       this.validar();
 
-      this.atualizadoEm = LocalDateTime.now();
+      this.atualizadoEm();
     }
   }
 
   public void deletar() {
-    this.deletadoEm = LocalDateTime.now();
+    this.deletadoEm();
   }
 
   public void validar() {
@@ -70,44 +54,8 @@ public class Cargo {
     return nome.toUpperCase();
   }
 
-  public UUID getId() {
-    return id;
-  }
-
-  public void setId(UUID id) {
-    this.id = id;
-  }
-
   public String getNome() {
     return nome;
-  }
-
-  public void setNome(String nome) {
-    this.nome = nome;
-  }
-
-  public LocalDateTime getCriadoEm() {
-    return criadoEm;
-  }
-
-  public void setCriadoEm(LocalDateTime criadoEm) {
-    this.criadoEm = criadoEm;
-  }
-
-  public LocalDateTime getAtualizadoEm() {
-    return atualizadoEm;
-  }
-
-  public void setAtualizadoEm(LocalDateTime atualizadoEm) {
-    this.atualizadoEm = atualizadoEm;
-  }
-
-  public LocalDateTime getDeletadoEm() {
-    return deletadoEm;
-  }
-
-  public void setDeletadoEm(LocalDateTime deletadoEm) {
-    this.deletadoEm = deletadoEm;
   }
 
 }

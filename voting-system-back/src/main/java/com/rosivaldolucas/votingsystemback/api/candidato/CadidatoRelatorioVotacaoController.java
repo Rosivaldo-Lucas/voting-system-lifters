@@ -1,6 +1,6 @@
 package com.rosivaldolucas.votingsystemback.api.candidato;
 
-import com.rosivaldolucas.votingsystemback.api.candidato.dto.CandidatoVencedorerOutput;
+import com.rosivaldolucas.votingsystemback.api.candidato.dto.CandidatoVencedorOutput;
 import com.rosivaldolucas.votingsystemback.domain.candidato.Candidato;
 import com.rosivaldolucas.votingsystemback.domain.candidato.CandidatoRelatorioVotacaoService;
 import org.springframework.http.HttpStatus;
@@ -22,10 +22,10 @@ public class CadidatoRelatorioVotacaoController {
   }
 
   @GetMapping("/relatorio")
-  public ResponseEntity<List<CandidatoVencedorerOutput>> relatorio() {
+  public ResponseEntity<List<CandidatoVencedorOutput>> relatorio() {
     final List<Candidato> candidatosVencedores = this.candidatoRelatorioVotacaoService.gerar();
 
-    final List<CandidatoVencedorerOutput> candidatosVencedoresOutput = CandidatoVencedorerOutput.criar(candidatosVencedores);
+    final List<CandidatoVencedorOutput> candidatosVencedoresOutput = CandidatoVencedorOutput.criar(candidatosVencedores);
 
     return ResponseEntity.status(HttpStatus.OK).body(candidatosVencedoresOutput);
   }

@@ -2,11 +2,12 @@ package com.rosivaldolucas.votingsystemback.domain.entity;
 
 import jakarta.persistence.*;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @MappedSuperclass
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,8 +30,8 @@ public abstract class BaseEntity {
     this.deletadoEm = null;
   }
 
-  public UUID getId() {
-    return id;
+  public String getId() {
+    return id.toString();
   }
 
   public LocalDateTime getCriadoEm() {

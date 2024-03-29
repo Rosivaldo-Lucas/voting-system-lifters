@@ -14,5 +14,11 @@ services:
     volumes:
       - db-vs-lifters:/var/lib/postgresql/data
 
+  cache-redis-voting-system:
+    container_name: cache-redis-vs-lifters
+    image: redis
+    ports:
+      - "6379:6379"
+
 volumes:
   db-vs-lifters:

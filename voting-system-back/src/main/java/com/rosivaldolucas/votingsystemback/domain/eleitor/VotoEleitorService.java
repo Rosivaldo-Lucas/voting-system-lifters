@@ -2,7 +2,7 @@ package com.rosivaldolucas.votingsystemback.domain.eleitor;
 
 import com.rosivaldolucas.votingsystemback.api.eleitor.dto.VotoEleitorInput;
 import com.rosivaldolucas.votingsystemback.domain.candidato.Candidato;
-import com.rosivaldolucas.votingsystemback.domain.candidato.CandidatoReceberVotoService;
+import com.rosivaldolucas.votingsystemback.domain.candidato.CandidatoRecebeVotoService;
 import com.rosivaldolucas.votingsystemback.domain.candidato.CandidatoService;
 import com.rosivaldolucas.votingsystemback.domain.voto.Voto;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,12 @@ public class VotoEleitorService {
 
   private final CandidatoService candidatoService;
   private final EleitorService eleitorService;
-  private final CandidatoReceberVotoService candidatoReceberVotoService;
+  private final CandidatoRecebeVotoService candidatoRecebeVotoService;
 
-  public VotoEleitorService(CandidatoService candidatoService, EleitorService eleitorService, CandidatoReceberVotoService candidatoReceberVotoService) {
+  public VotoEleitorService(CandidatoService candidatoService, EleitorService eleitorService, CandidatoRecebeVotoService candidatoRecebeVotoService) {
     this.candidatoService = candidatoService;
     this.eleitorService = eleitorService;
-    this.candidatoReceberVotoService = candidatoReceberVotoService;
+    this.candidatoRecebeVotoService = candidatoRecebeVotoService;
   }
 
   public void votar(final String idEleitor, final VotoEleitorInput input) {
@@ -28,7 +28,7 @@ public class VotoEleitorService {
 
     final Voto votoCriado = Voto.criar(candidatoAReceberVoto, eleitorAVotar);
 
-    this.candidatoReceberVotoService.receber(candidatoAReceberVoto, votoCriado);
+    this.candidatoRecebeVotoService.receber(candidatoAReceberVoto, votoCriado);
   }
 
   private void validarIdEleitor(final String idEleitor, final String idEleitorInput) {
