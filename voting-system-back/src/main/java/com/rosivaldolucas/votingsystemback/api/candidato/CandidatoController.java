@@ -1,5 +1,6 @@
 package com.rosivaldolucas.votingsystemback.api.candidato;
 
+import com.rosivaldolucas.votingsystemback.api.candidato.dto.AtualizarCandidatoInput;
 import com.rosivaldolucas.votingsystemback.api.candidato.dto.CandidatoOutput;
 import com.rosivaldolucas.votingsystemback.api.candidato.dto.NovoCandidatoInput;
 import com.rosivaldolucas.votingsystemback.domain.candidato.Candidato;
@@ -45,6 +46,22 @@ public class CandidatoController {
     final CandidatoOutput candidatoOutput = CandidatoOutput.criar(candidatoCadastrado);
 
     return ResponseEntity.status(HttpStatus.CREATED).body(candidatoOutput);
+  }
+
+  @PatchMapping("/{idCandidato}")
+  public ResponseEntity<CandidatoOutput> atualizar(@PathVariable final String idCandidato, @RequestBody @Validated final AtualizarCandidatoInput input) {
+    final Candidato candidatoAtualizado = this.candidatoService.atualizar(idCandidato, input);
+
+    final CandidatoOutput candidatoOutput = CandidatoOutput.criar(candidatoAtualizado);
+
+    return ResponseEntity.status(HttpStatus.OK).body(candidatoOutput);
+  }
+
+  @DeleteMapping("/{idCandidato}")
+  public ResponseEntity<Void> deletar(@PathVariable final String idCandidato) {
+    this.candidatoService.deletar(idCandidato);
+
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
   }
 
 }

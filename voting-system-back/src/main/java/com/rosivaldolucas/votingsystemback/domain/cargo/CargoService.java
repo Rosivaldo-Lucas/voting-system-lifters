@@ -2,12 +2,13 @@ package com.rosivaldolucas.votingsystemback.domain.cargo;
 
 import com.rosivaldolucas.votingsystemback.api.cargo.dto.AtualizarCargoInput;
 import com.rosivaldolucas.votingsystemback.api.cargo.dto.NovoCargoInput;
-import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoDuplicadoException;
-import com.rosivaldolucas.votingsystemback.domain.cargo.exception.CargoNaoEncontradoException;
+import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeDuplicadaException;
+import com.rosivaldolucas.votingsystemback.domain.exception.EntidadeNaoEncontradaException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,10 +24,14 @@ public class CargoService {
     return this.cargoRepository.findAllByDeletadoEmIsNull(PageRequest.of(numeroPagina, tamanhoPagina));
   }
 
+  public List<Cargo> listar() {
+    return this.cargoRepository.findAll();
+  }
+
   public Cargo buscarPorId(final String idCargo) {
     return this.cargoRepository
             .findById(idCargo)
-            .orElseThrow(() -> new CargoNaoEncontradoException(String.format("Cargo de 'id' %s não encontrado.", idCargo)));
+            .orElseThrow(() -> new EntidadeNaoEncontradaException(String.format("Cargo de 'id' %s não encontrado.", idCargo)));
   }
 
   public Cargo cadastrar(final NovoCargoInput input) {
@@ -57,7 +62,7 @@ public class CargoService {
     final Optional<Cargo> cargoBuscadoPorNome = this.cargoRepository.findByNome(nomeCargoInput.toUpperCase());
 
     if (cargoBuscadoPorNome.isPresent() && !cargoBuscadoPorNome.get().getNome().equals(nomeCargo)) {
-      throw new CargoDuplicadoException(String.format("O nome do cargo '%s' já existe.", nomeCargoInput));
+      throw new EntidadeDuplicadaException(String.format("O nome do cargo '%s' já existe.", nomeCargoInput));
     }
   }
 

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: Rosivaldo Lucas
+      changes:
+        - addColumn:
+            tableName: candidatos
+            columns:
+              - column:
+                  name: quantidade_votos
+                  type: int
+                  defaultValueNumeric: 0
+                  constraints:
+                    nullable: true

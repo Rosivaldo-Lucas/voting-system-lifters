@@ -4,9 +4,14 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/db-vs-lifters
+    url: jdbc:postgresql://db-voting-system:5432/db-vs-lifters
     username: lifters
     password: lifters
 
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
+
+  data:
+    redis:
+      host: cache-redis-voting-system
+      port: 6379

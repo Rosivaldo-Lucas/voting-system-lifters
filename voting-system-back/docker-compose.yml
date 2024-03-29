@@ -1,6 +1,16 @@
 version: "3.7"
 
 services:
+  app-voting-system:
+    container_name: app-vs-lifters
+    image: desafio/app-vs:0.0.1
+    restart: always
+    depends_on:
+      - db-voting-system
+      - cache-redis-voting-system
+    ports:
+      - "8080:8080"
+
   db-voting-system:
     container_name: db-vs-lifters
     image: bitnami/postgresql
@@ -13,6 +23,12 @@ services:
       - "5432:5432"
     volumes:
       - db-vs-lifters:/var/lib/postgresql/data
+
+  cache-redis-voting-system:
+    container_name: cache-redis-vs-lifters
+    image: redis
+    ports:
+      - "6379:6379"
 
 volumes:
   db-vs-lifters:
