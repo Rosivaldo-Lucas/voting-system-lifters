@@ -132,6 +132,8 @@ docker compose -f docker-compose.yml up -d
 Este comando irá executar o container do Banco de Dados *PostgreSQL*, o container do Banco de Dados em memória *Redis* para Cache
 e irá executar a aplicação *Spring Boot* na porta *8080*
 
+O sistema vem com alguns dados já inseridos no Banco de Dados para a realização dos testes
+
 ## 📝 Testando API com Swagger
 
 Com o sistema em execução, em seu navegador digite a seguinte URL para abrir a documentação da aplicação

@@ -1,0 +1,173 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: Rosivaldo Lucas
+      changes:
+        - insert:
+            tableName: cargos
+            columns:
+              - column:
+                  name: id
+                  value: "2bf62d8e-fdb5-495d-9083-8d2d956eef3c"
+              - column:
+                  name: nome
+                  value: "PRESIDENTE"
+              - column:
+                  name: criado_em
+                  valueComputed: "NOW()"
+              - column:
+                  name: atualizado_em
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: cargos
+            columns:
+              - column:
+                  name: id
+                  value: "056b3cac-8445-4d10-9242-4f14fc4fe271"
+              - column:
+                  name: nome
+                  value: "PREFEITO"
+              - column:
+                  name: criado_em
+                  valueComputed: "NOW()"
+              - column:
+                  name: atualizado_em
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: eleitores
+            columns:
+              - column:
+                  name: id
+                  value: "f8de9bad-a5e7-4f3f-a46d-f98ca588d037"
+              - column:
+                  name: nome
+                  value: "Leandro Gustavo da Luz"
+              - column:
+                  name: cpf
+                  value: "62143478305"
+              - column:
+                  name: criado_em
+                  valueComputed: "NOW()"
+              - column:
+                  name: atualizado_em
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: eleitores
+            columns:
+              - column:
+                  name: id
+                  value: "84d42bea-f7eb-4ffb-9227-c084fb460151"
+              - column:
+                  name: nome
+                  value: "Ricardo Filipe Farias"
+              - column:
+                  name: cpf
+                  value: "77147353684"
+              - column:
+                  name: criado_em
+                  valueComputed: "NOW()"
+              - column:
+                  name: atualizado_em
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: candidatos
+            columns:
+              - column:
+                  name: id
+                  value: "9ba6b1d2-b1e3-4f74-b684-58374ff9e4df"
+              - column:
+                  name: nome
+                  value: "Sebastiana Márcia Beatriz Barbosa"
+              - column:
+                  name: numero
+                  value: 1111
+              - column:
+                  name: legenda
+                  value: "Leganda Candidato"
+              - column:
+                  name: id_cargo
+                  value: "2bf62d8e-fdb5-495d-9083-8d2d956eef3c"
+              - column:
+                  name: quantidade_votos
+                  value: 2
+              - column:
+                  name: criado_em
+                  valueComputed: "NOW()"
+              - column:
+                  name: atualizado_em
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: candidatos
+            columns:
+              - column:
+                  name: id
+                  value: "f517c7f1-bbfe-4d06-b8e6-fcea188acee4"
+              - column:
+                  name: nome
+                  value: "Mateus Lucas da Cruz"
+              - column:
+                  name: numero
+                  value: 2222
+              - column:
+                  name: legenda
+                  value: "Leganda Candidato"
+              - column:
+                  name: id_cargo
+                  value: "056b3cac-8445-4d10-9242-4f14fc4fe271"
+              - column:
+                  name: quantidade_votos
+                  value: 2
+              - column:
+                  name: criado_em
+                  valueComputed: "NOW()"
+              - column:
+                  name: atualizado_em
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: votos
+            columns:
+              - column:
+                  name: id_candidato
+                  value: "9ba6b1d2-b1e3-4f74-b684-58374ff9e4df"
+              - column:
+                  name: id_eleitor
+                  value: "f8de9bad-a5e7-4f3f-a46d-f98ca588d037"
+              - column:
+                  name: data
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: votos
+            columns:
+              - column:
+                  name: id_candidato
+                  value: "9ba6b1d2-b1e3-4f74-b684-58374ff9e4df"
+              - column:
+                  name: id_eleitor
+                  value: "84d42bea-f7eb-4ffb-9227-c084fb460151"
+              - column:
+                  name: data
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: votos
+            columns:
+              - column:
+                  name: id_candidato
+                  value: "f517c7f1-bbfe-4d06-b8e6-fcea188acee4"
+              - column:
+                  name: id_eleitor
+                  value: "f8de9bad-a5e7-4f3f-a46d-f98ca588d037"
+              - column:
+                  name: data
+                  valueComputed: "NOW()"
+        - insert:
+            tableName: votos
+            columns:
+              - column:
+                  name: id_candidato
+                  value: "f517c7f1-bbfe-4d06-b8e6-fcea188acee4"
+              - column:
+                  name: id_eleitor
+                  value: "84d42bea-f7eb-4ffb-9227-c084fb460151"
+              - column:
+                  name: data
+                  valueComputed: "NOW()"
