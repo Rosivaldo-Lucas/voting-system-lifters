@@ -15,11 +15,12 @@ o sistema automáticamente irá verificar os candidatos mais votados e então ir
   - [Passo 2: Gerando .jar do projeto](#passo-2-gerando-jar-do-projeto)
   - [Passo 3: Gerando imagem Docker do projeto](#passo-3-gerando-imagem-docker-do-projeto)
   - [Passo 4: Executar o projeto Voting System](#passo-4-executar-o-projeto-voting-system)
-- [Testando a API com o Swagger](#-testando-a-api-com-o-swagger)
+- [Testando a API com o Swagger](#-testando-api-com-swagger)
 - [Estrutura do sistema](#-estrutura-do-sistema)
   - [Diagrama do sistema](#diagrama-do-sistema)
   - [Relacionamentos](#relacionamentos)
   - [Projeto e Issues criados para guiar o desenvolvimento do projeto](#projeto-e-issues-criados-para-guiar-o-desenvolvimento-do-projeto)
+- [Próximas etapas e melhorias](#-próximas-etapas-e-melhorias)
 
 ## 🛠️ Tecnologias utilizadas
 
