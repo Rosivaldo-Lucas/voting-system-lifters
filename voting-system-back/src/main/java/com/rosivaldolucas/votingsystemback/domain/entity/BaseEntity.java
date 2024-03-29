@@ -31,7 +31,7 @@ public abstract class BaseEntity implements Serializable {
   }
 
   public String getId() {
-    return id.toString();
+    return id == null ? null : id.toString();
   }
 
   public LocalDateTime getCriadoEm() {

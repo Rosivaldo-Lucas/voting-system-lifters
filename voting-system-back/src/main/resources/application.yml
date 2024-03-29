@@ -4,7 +4,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/db-vs-lifters
+    url: jdbc:postgresql://db-voting-system:5432/db-vs-lifters
     username: lifters
     password: lifters
 
@@ -13,5 +13,5 @@ spring:
 
   data:
     redis:
-      host: localhost
+      host: cache-redis-voting-system
       port: 6379
