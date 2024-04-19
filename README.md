@@ -144,7 +144,7 @@ Com o sistema em execução, em seu navegador digite a seguinte URL para abrir a
 
 ### Diagrama do sistema
 
-![Diagrama do Sistema](../docs/diagrama-sistema.png)
+![Diagrama do Sistema](docs/diagrama-sistema.png)
 
 ### Relacionamentos
 
